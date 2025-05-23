@@ -11,6 +11,7 @@ func Print(print ...interface{}) {
 
 func main() {
 
+	//example run
 	data := []int{1, 2, 3, 4, 6}
 
 	index, elements := insert.Input()

@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"go-module/insert"
+	// "go-module/insert" //uncomment the package to use
+	// "go-module/object"
 )
 
 func Print(print ...interface{}) {
@@ -11,10 +12,26 @@ func Print(print ...interface{}) {
 
 func main() {
 
-	//example run
-	data := []int{1, 2, 3, 4, 6}
+	//example insert
+
+	/* insertData := []int{1, 2, 3, 4, 6}
 
 	index, elements := insert.Input()
-	Print(insert.PushByIndex(*elements, *index, data...))
+	Print(insert.PushByIndex(*elements, *index, insertData...)) */
+
+
+
+	
+	//example object
+	/* objectOne := object.ObjectMap([]any{"FirstName", "LastName", "Age"}, []any{"James Kyron", "Sostino", "22"})
+	objectTwo := object.ObjectMap([]any{"FirstName", "LastName", "Age"}, []any{"Trash", "Bin", "30"})
+
+	data := object.ObjectMapList(objectOne, objectTwo)
+
+	for i := range data {
+		for _, elements := range []any{"FirstName", "LastName", "Age"} {
+			Print(elements, ": ", data[i][elements], "\n")
+		}
+	} */
 
 }

@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	// "go-module/structs"
+	"go-module/structs"
 	// "go-module/insert" //uncomment the package to use
 	// "go-module/object"
 )
@@ -31,5 +31,5 @@ func main() {
 		}
 	} */
 
-	// structs.Index()
+	structs.Index()
 }

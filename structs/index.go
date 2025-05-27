@@ -3,9 +3,11 @@ package structs
 import (
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 type Account struct {
+	id        uint64
 	firstName string
 	lastName  string
 	email     string
@@ -13,9 +15,13 @@ type Account struct {
 	age       uint8
 }
 
-func (a *Account) editProfile(edit map[string]string) error {
+func (a *Account) editProfile(edit map[string]string, er error) error {
 
 	var err uint8
+
+	if er != nil {
+		return fmt.Errorf("argument should not be empty or length(0)")
+	}
 
 	for elements := range edit {
 		if edit[elements] == "" {
@@ -47,27 +53,45 @@ func (a *Account) editProfile(edit map[string]string) error {
 	if err != 1 {
 		return nil
 	} else {
-		return fmt.Errorf("error, please try again")
+		return fmt.Errorf("error, Please Try Again")
+	}
+}
+
+func ConcatMulti(text []byte) string {
+	var concat strings.Builder
+
+	for _, elements := range text {
+		concat.WriteString(strconv.FormatUint(uint64(elements), 10))
+	}
+	return concat.String()
+}
+
+func CreateAccount(fname string, lname string, email string, pass string, age uint8) (Account, error) {
+
+	if len(fname) == 0 || len(lname) == 0 || len(email) == 0 || len(pass) == 0 {
+		return Account{}, fmt.Errorf("error, Please Try Again")
+	} else {
+		u, _ := strconv.ParseUint(ConcatMulti([]byte{fname[0], lname[0], email[0], pass[0], age}), 10, 64)
+		return Account{
+			id:        u,
+			firstName: fname,
+			lastName:  lname,
+			email:     email,
+			password:  pass,
+			age:       age,
+		}, nil
 	}
 }
 
 func Index() {
 
-	acc := []Account{
-		{
-			firstName: "XQ",
-			lastName:  "C",
-			email:     "Xqc@gmail.com",
-			password:  "123",
-			age:       22,
-		},
-	}
+	acc, er := CreateAccount("Ass", "m", "ass@gmail.com", "123", 23)
 
-	err := acc[0].editProfile(map[string]string{"password": "admin123", "age": "100"})
+	err := acc.editProfile(map[string]string{"password": "admin123", "age": "100"}, er)
 
 	if err == nil {
 		fmt.Print(acc)
 	} else {
-		fmt.Print(err)
+		fmt.Print(er)
 	}
 }

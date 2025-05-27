@@ -66,13 +66,13 @@ func ConcatMulti(text []byte) string {
 	return concat.String()
 }
 
-func CreateAccount(fname string, lname string, email string, pass string, age uint8) (Account, error) {
+func newAccount(fname string, lname string, email string, pass string, age uint8) (*Account, error) {
 
 	if len(fname) == 0 || len(lname) == 0 || len(email) == 0 || len(pass) == 0 {
-		return Account{}, fmt.Errorf("error, Please Try Again")
+		return &Account{}, fmt.Errorf("error, Please Try Again")
 	} else {
 		u, _ := strconv.ParseUint(ConcatMulti([]byte{fname[0], lname[0], email[0], pass[0], age}), 10, 64)
-		return Account{
+		return &Account{
 			id:        u,
 			firstName: fname,
 			lastName:  lname,
@@ -85,7 +85,7 @@ func CreateAccount(fname string, lname string, email string, pass string, age ui
 
 func Index() {
 
-	acc, er := CreateAccount("Ass", "m", "ass@gmail.com", "123", 23)
+	acc, er := newAccount("Ass", "m", "ass@gmail.com", "123", 23)
 
 	err := acc.editProfile(map[string]string{"password": "admin123", "age": "100"}, er)
 
